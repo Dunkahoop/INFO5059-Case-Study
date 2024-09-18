@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span>INFO5059 - {{title}}</span>
+  <!-- This fills the remaining space of the current row -->
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-button [matMenuTriggerFor]="appMenu" align="end">
+  <mat-icon>menu</mat-icon>
+  </button>
+ </mat-toolbar>
+ <mat-menu #appMenu="matMenu" xPosition="after">
+  <!--Title is set with constructor, should run when page opened but doen't, this is temporary fix-->
+  <a mat-menu-item [routerLink]="['home']" (click)="setTitle('Home')">Home</a>
+  <a mat-menu-item [routerLink]="['vendors']" (click)="setTitle('Vendors')">vendors</a>
+ </mat-menu>
+<router-outlet></router-outlet>
