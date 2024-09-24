@@ -13,6 +13,11 @@
     </mat-list>
   </mat-card-content>
 </mat-card>
+<div class="pad5" *ngIf="hideEditForm">
+  <mat-icon (click)="newVendor()" matTooltip="Add New Vendor" class="addicon" color="primary">
+  control_point
+  </mat-icon>
+ </div>
 <ng-template #loading class="my-primary-text"
   >Loading Vendors from server...</ng-template
 >
@@ -26,7 +31,8 @@
     <app-vendor-detail
       [selectedVendor]="vendor"
       (cancelled)="cancel()"
-      (saved)="update($event)"
+      (saved)="save($event)"
+      (deleted)="delete($event)"
     >
     </app-vendor-detail>
   </mat-card-content>

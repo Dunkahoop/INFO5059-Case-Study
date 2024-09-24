@@ -33,21 +33,13 @@ export class VendorHomeComponent implements OnInit {
   } //constructor
 
   ngOnInit(): void {
-    this.msg = 'loading vendors from server...';
-    this.vendors$ = this.vendorService.get().pipe(
-      tap(() => {
-        if (this.initialLoad) {
-          this.msg = 'vendors loaded!';
-          this.initialLoad = false;
-        }
-      })
-    );
+    this.vendors$ = this.vendorService.get();
   } //ngOnInit
   select(vendor: Vendor): void {
     this.vendor = vendor;
     this.msg = `${vendor.name} selected`;
     this.hideEditForm = !this.hideEditForm;
-  }
+  } //select
   cancel(): void {
     this.msg = 'Operation cancelled';
     this.hideEditForm = !this.hideEditForm;
@@ -59,4 +51,45 @@ export class VendorHomeComponent implements OnInit {
       complete: () => (this.hideEditForm = !this.hideEditForm),
     });
   } //update
-} //EmployeeHomeComponent
+  save(vendor: Vendor): void {
+    vendor.id ? this.update(vendor) : this.add(vendor);
+  } //save
+  add(vendor: Vendor): void {
+    vendor.id = 0;
+    this.vendorService.add(vendor).subscribe({
+      //create observer object
+      next: (vend: Vendor) => {
+        this.msg = `Vendor ${vend.id} added!`;
+      },
+      error: (err: Error) => (this.msg = `Vendor not added! - ${err.message}`),
+      complete: () => (this.hideEditForm = !this.hideEditForm),
+    });
+  } //add
+  delete(vendor: Vendor): void {
+    this.vendorService.delete(vendor.id).subscribe({
+      // Create observer object
+      next: (numOfVendorsDeleted: number) => {
+        numOfVendorsDeleted === 1
+          ? (this.msg = `Vendor ${vendor.name} deleted!`)
+          : (this.msg = `Vendor not deleted`);
+      },
+      error: (err: Error) => (this.msg = `Delete failed! - ${err.message}`),
+      complete: () => (this.hideEditForm = !this.hideEditForm),
+    });
+  } // delete
+  newVendor(): void {
+    this.vendor = {
+      id: 0,
+      name: '',
+      address1: '',
+      city: '',
+      province: '',
+      postalcode: '',
+      phone: '',
+      type: '',
+      email: '',
+    };
+    this.hideEditForm = !this.hideEditForm;
+    this.msg = 'New Vendor';
+  } //newVendor
+} //VendorHomeComponent

@@ -61,6 +61,7 @@
           <mat-select matInput placeholder="Type" required formControlName="type" flex>
             <mat-option value="Trusted">Trusted</mat-option>
             <mat-option value="Untrusted">Untrusted</mat-option>
+            <mat-option value="Untrusted">Unknown</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -74,6 +75,10 @@
         <span>
           <button mat-raised-button type="submit">Save</button>
         </span>
+        <span>
+          <button *ngIf="selectedVendor.id" mat-raised-button type="button"
+          (click)="deleted.emit(selectedVendor)">Delete</button>
+          </span>
         <span>
           <button
             mat-raised-button
