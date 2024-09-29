@@ -33,8 +33,16 @@ export class VendorHomeComponent implements OnInit {
   } //constructor
 
   ngOnInit(): void {
-    this.vendors$ = this.vendorService.get();
+    this.msg = 'Loading...';
+    this.getAll();
   } //ngOnInit
+  getAll(): void {
+    this.vendors$ = this.vendorService.getAll();
+    this.vendors$.subscribe({
+      error: (e: Error) => (this.msg = `Couldn't get vendors - ${e.message}`),
+      complete: () => (this.msg = `Vendors loaded!`),
+    });
+  } //getAll
   select(vendor: Vendor): void {
     this.vendor = vendor;
     this.msg = `${vendor.name} selected`;
@@ -56,7 +64,7 @@ export class VendorHomeComponent implements OnInit {
   } //save
   add(vendor: Vendor): void {
     vendor.id = 0;
-    this.vendorService.add(vendor).subscribe({
+    this.vendorService.create(vendor).subscribe({
       //create observer object
       next: (vend: Vendor) => {
         this.msg = `Vendor ${vend.id} added!`;
