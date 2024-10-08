@@ -41,9 +41,9 @@ export class ProductHomeComponent implements OnInit {
       complete: () => (verbose ? (this.msg = `Vendors loaded!`) : null),
     });
   }
-  getAllProducts(verbose: boolean = true): void {//TODO: figure out why the fuck products doesn't get sent to detail component
+  getAllProducts(verbose: boolean = true): void {
     this.productService.getAll().subscribe({
-      next: (products: Product[]) => {this.dataSource.data = products; this.products = products; console.log(this.dataSource.data)},
+      next: (products: Product[]) => {this.dataSource.data = products; this.products = products; console.log(this.products)},
       error: (e: Error) =>
         (this.msg = `Failed to load products - ${e.message}`),
       complete: () => (verbose ? (this.msg = `Products loaded!`) : null),

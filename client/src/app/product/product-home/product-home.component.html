@@ -7,18 +7,6 @@
     </mat-card-title>
   </mat-card-header>
 
-  <mat-card-content *ngIf="showDetails">
-    <app-product-detail
-      [product]="productInDetail"
-      [vendors]="vendors"
-      [products]="dataSource.data"
-      (cancelled)="cancel()"
-      (saved)="save($event)"
-      (deleted)="delete($event)"
-    >
-  </app-product-detail>
-  </mat-card-content>
-
   <mat-card-content *ngIf="!showDetails">
     <table
       mat-table
@@ -72,3 +60,15 @@
     control_point
   </mat-icon>
 </div>
+<mat-card *ngIf="showDetails"
+  ><mat-card-content>
+    <app-product-detail
+      [product]="productInDetail"
+      [vendors]="vendors"
+      [products]="products"
+      (cancelled)="cancel()"
+      (saved)="save($event)"
+      (deleted)="delete($event)"
+    >
+    </app-product-detail> </mat-card-content
+></mat-card>

@@ -3,7 +3,6 @@
 /* ======== Angular material custom themes ======== */
 /* colour names and values from */
 /* https://material.io/design/color/the-color-system.html#color-theme-creation */
-//TODO: make this different!
 $my-primary: mat.m2-define-palette(mat.$m2-blue-palette, 700);
 $my-accent: mat.m2-define-palette(mat.$m2-brown-palette, 500);
 $my-theme: mat.m2-define-light-theme(

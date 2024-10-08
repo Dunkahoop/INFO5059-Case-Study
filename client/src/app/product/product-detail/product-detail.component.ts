@@ -37,10 +37,7 @@ export class ProductDetailComponent implements OnInit {
   eoq: FormControl;
   qoh: FormControl;
   qoo: FormControl;
-  //qrcode: FormControl;
-  //qrcodetxt: FormControl;
   productForm: FormGroup;
-  //selectedProduct: any;
   constructor(private builder: FormBuilder) {
     this.id = new FormControl(
       '',
@@ -63,16 +60,9 @@ export class ProductDetailComponent implements OnInit {
     this.eoq = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
     this.qoh = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
     this.qoo = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
-    // this.qrcode = new FormControl(
-    //   '',
-    //   Validators.compose([Validators.required])
-    // );
-    // this.qrcodetxt = new FormControl(
-    //   '',
-    //   Validators.compose([Validators.required])
-    // );
+
     this.productForm = this.builder.group({
-      id: this.products,
+      id: this.id,
       vendorid: this.vendors,
       name: this.name,
       costprice: this.costprice,
@@ -81,8 +71,6 @@ export class ProductDetailComponent implements OnInit {
       eoq: this.eoq,
       qoh: this.qoh,
       qoo: this.qoo,
-      // qrcode: this.qrcode,
-      // qrcodetxt: this.qrcodetxt,
     });
   }
   ngOnInit(): void {
@@ -96,8 +84,6 @@ export class ProductDetailComponent implements OnInit {
       eoq: this.product.eoq,
       qoh: this.product.qoh,
       qoo: this.product.qoo,
-      // qrcode: this.product.qrcode,
-      // qrcodetxt: this.product.qrcodetxt,
     });
   }
   updateProductInDetail(): void {
@@ -110,8 +96,6 @@ export class ProductDetailComponent implements OnInit {
     this.product.eoq = this.productForm.value.eoq;
     this.product.qoh = this.productForm.value.qoh;
     this.product.qoo = this.productForm.value.qoo;
-    // this.product.qrcode = [];
-    // this.product.qrcodetxt = "";
     this.saved.emit(this.product);
   }
   uniqueCodeValidator(control: AbstractControl): { idExists: boolean } | null {

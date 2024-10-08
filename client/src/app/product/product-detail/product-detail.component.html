@@ -7,19 +7,14 @@
       <div layout="row" *ngIf="!product.id; else displayidro">
         <mat-form-field flex>
           <mat-label>Product ID</mat-label>
-          <input
-            matInput
-            placeholder="Product Id"
-            type="text"
-            formControlName="id"
-          />
-          <mat-error align="end">
-            <span *ngIf="id.hasError('required')">id is required</span>
-            <span *ngIf="!id.hasError('required') && id.hasError('idExists')"
-              >ID already exists</span
-            >
+          <input matInput type="text" formControlName="id" />
+          <mat-error *ngIf="id.errors && (id.dirty || id.touched)" align="end">
+            <!-- ID is required -->
+            <span *ngIf="id.hasError('required')">ID is required</span>
+            <span *ngIf="!id.hasError('required') && id.hasError('idExists')">ID already exists</span>
           </mat-error>
         </mat-form-field>
+        
       </div>
       <ng-template #displayidro>
         <mat-form-field flex style="font-weight: bolder" color="accent">
