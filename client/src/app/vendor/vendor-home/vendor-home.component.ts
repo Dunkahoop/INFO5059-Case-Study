@@ -74,7 +74,7 @@ export class VendorHomeComponent implements OnInit {
     });
   } //add
   delete(vendor: Vendor): void {
-    this.vendorService.delete(vendor.id).subscribe({
+    this.vendorService.delete(vendor.id.toString()).subscribe({
       // Create observer object
       next: (numOfVendorsDeleted: number) => {
         numOfVendorsDeleted === 1

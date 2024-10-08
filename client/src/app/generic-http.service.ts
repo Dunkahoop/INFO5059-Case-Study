@@ -33,7 +33,7 @@ export class GenericHttpService<T> {
  .put<T>(urlWithId, data)
  .pipe(retry(1), catchError(this.handleError));
  }
- delete(id: number): Observable<number> {
+ delete(id: string): Observable<number> {
  const urlWithId = `${BASE_URL}/${this.endPoint}/${id}`;
  return this.http
  .delete<number>(urlWithId)

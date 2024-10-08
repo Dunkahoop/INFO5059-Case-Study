@@ -10,3 +10,16 @@ export const VENDOR_DEFAULT = {
     type: '',
     email: '',
   }
+  export const PRODUCT_DEFAULT = {
+    id: '',
+    vendorid: 0,
+    name: '',
+    costprice: 0,
+    msrp: 0,
+    rop: 0,
+    eoq: 0,
+    qoh: 0,
+    qoo: 0,
+    qrcode: [],
+    qrcodetxt: ''
+};

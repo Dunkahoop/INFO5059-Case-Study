@@ -2,7 +2,7 @@ describe('vendor add test', () => {
   it('visits the vendor page and adds an vendor', () => {
     cy.visit('/');
     cy.get('button').click();
-    cy.contains('a', 'vendors').click();
+    cy.contains('a', 'Vendors').click();
     cy.contains('control_point').click();
     cy.get('input[formcontrolname=name]')
       .click({ force: true })
