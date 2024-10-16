@@ -35,4 +35,9 @@ public class ProductController {
         //int rowsDeleted = productRepository.deleteOne(id);//idk if this is better
         return new ResponseEntity<Integer>(productRepository.deleteOne(id), HttpStatus.OK);
     }
+
+    @GetMapping("/api/products/{vendorid}")
+    public ResponseEntity<Iterable<Product>> findByVendor(@PathVariable int vendorid) {
+        return new ResponseEntity<Iterable<Product>>(productRepository.findByVendorid(vendorid), HttpStatus.OK);
+    }
 }

@@ -11,8 +11,6 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class Product {
     @Id
-    //@GenerateValue made the id generation all funky
-    //TODO: introduce a way to generate IDs automatically
     private String id;
     private int vendorid;
     private String name;
