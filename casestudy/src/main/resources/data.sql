@@ -7,7 +7,7 @@ INSERT INTO Product (Id, VendorId, Name, CostPrice, MSRP, ROP, EOQ, QOH, QOO, QR
 INSERT INTO Product (Id, VendorId, Name, CostPrice, MSRP, ROP, EOQ, QOH, QOO, QRCode, QRCodeTXT) VALUES ('B420', 3, '1000 Robux', 5.75, 10.00, 200, 400, 800, 200, NULL, NULL);
 INSERT INTO Product (Id, VendorId, Name, CostPrice, MSRP, ROP, EOQ, QOH, QOO, QRCode, QRCodeTXT) VALUES ('X124', 4, 'Cherry MX Blue Keyboard', 129.97, 140.00, 1, 10, 20, 5, NULL, NULL);
 INSERT INTO Product (Id, VendorId, Name, CostPrice, MSRP, ROP, EOQ, QOH, QOO, QRCode, QRCodeTXT) VALUES ('X144', 4, 'Nvidia RTX 3090 Ti', 329.98, 350.00, 1, 10, 10, 3, NULL, NULL);
-
+INSERT INTO Product (Id, VendorId, Name, CostPrice, MSRP, ROP, EOQ, QOH, QOO, QRCode, QRCodeTXT) VALUES ('X145', 4, 'AMD RX 7600', 259.98, 300.00, 1, 10, 10, 3, NULL, NULL);
 -- reference for product
 -- create table product (
 --         costprice numeric(38,2),

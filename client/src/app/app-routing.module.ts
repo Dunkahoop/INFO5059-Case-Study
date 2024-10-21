@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { VendorHomeComponent } from './vendor/vendor-home/vendor-home.component';
 import { ProductHomeComponent } from './product/product-home/product-home.component';
+import { GeneratorComponent } from './purchaseorder/generator/generator/generator.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, title: 'Case Study - Home' },
@@ -17,6 +18,7 @@ const routes: Routes = [
     title: 'Case Study - Products',
   },
   { path: '', component: HomeComponent, title: 'Case Study - Home' },
+  { path: 'generator', component: GeneratorComponent },
 ];
 
 @NgModule({

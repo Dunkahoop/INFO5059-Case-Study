@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title: string = '';
+  title: string = 'Home';
 
   constructor(private location: Location) {
     let header = '';

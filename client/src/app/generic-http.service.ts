@@ -39,6 +39,12 @@ export class GenericHttpService<T> {
  .delete<number>(urlWithId)
  .pipe(retry(1), catchError(this.handleError));
  }
+ getSome(id: number): Observable<T[]> {
+    const urlWithId = `${BASE_URL}/${this.endPoint}/${id}`;
+    return this.http
+      .get<T[]>(urlWithId)
+      .pipe(retry(1), catchError(this.handleError));
+  }
  handleError(error: any) {
  let errorMessage = error.message;
  console.log(error);
