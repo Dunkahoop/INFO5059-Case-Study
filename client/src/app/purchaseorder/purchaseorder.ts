@@ -4,5 +4,7 @@ export interface Purchaseorder {
     id: number;
     vendorid: number;
     items: PurchaseorderItem[];
-    amount: number;
+    total: number;
+    subtotal: number;
+    tax: number;
 }

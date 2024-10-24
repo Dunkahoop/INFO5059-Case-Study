@@ -6,7 +6,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { PRODUCT_DEFAULT, VENDOR_DEFAULT } from '@app/constants';
+import { PDF_URL, PRODUCT_DEFAULT, VENDOR_DEFAULT } from '@app/constants';
 import { MatComponentsModule } from '@app/mat-components/mat-components.module';
 import { Product } from '@app/product/product';
 import { ProductService } from '@app/product/product.service';
@@ -16,7 +16,7 @@ import { PurchaseorderService } from '@app/purchaseorder/purchaseorder.service';
 import { Vendor } from '@app/vendor/vendor';
 import { VendorService } from '@app/vendor/vendor.service';
 import { Subscription } from 'rxjs';
-
+//TODO: do some cleanup regarding purchaseorderitems; they may be implemented incoreecetly by having qty and productname
 @Component({
   selector: 'app-generator',
   standalone: true,
@@ -39,6 +39,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   productForm: FormControl;
   quantityForm: FormControl;
   generatorFormGroup: FormGroup;
+  generatedOrderId: number = 0;
   quantity: number = 0;
   constructor(
     private builder: FormBuilder,
@@ -82,6 +83,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
         this.loadVendorProducts();
         this.purchaseOrderItems = [];
         this.msg = 'Choose product for vendor';
+        this.generatedOrderId = 0;
       });
   }
   setupOnProductPickedEvent() {
@@ -204,18 +206,25 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       id: 0,
       items: this.purchaseOrderItems,
       vendorid: this.selectedVendor.id,
-      amount: this.total,
+      total: this.total,
+      subtotal: this.subtotal,
+      tax: this.tax
     };
     this.purchaseOrderService.create(order).subscribe({
       next: (order: Purchaseorder) => {
         order.id > 0
           ? (this.msg = `Order ${order.id} added!`)
           : (this.msg = 'Order not added! - server error');
+
+          this.generatedOrderId = order.id;
           console.log(`order added`);
       },
       error: (err: Error) => (this.msg = `Order not added! - ${err.message}`),
       complete: () => this.resetGenerator(),
     });
+  }
+  viewPdf(): void {
+    window.open(`${PDF_URL}?id=${this.generatedOrderId}`);
   }
   resetGenerator(): void {
     this.productForm.reset();

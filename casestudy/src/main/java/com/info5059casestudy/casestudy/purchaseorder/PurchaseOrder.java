@@ -24,10 +24,12 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long vendorid; // FK
-    private BigDecimal amount;
+    private BigDecimal subtotal;
+    private BigDecimal tax;
+    private BigDecimal total;
     @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
     private LocalDateTime podate;
-    @OneToMany(targetEntity = PurchaseOrderLineItem.class, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(targetEntity = PurchaseOrderItem.class, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "poid", referencedColumnName = "id")
-    private List<PurchaseOrderLineItem> items = new ArrayList<PurchaseOrderLineItem>();
+    private List<PurchaseOrderItem> items = new ArrayList<PurchaseOrderItem>();
 }

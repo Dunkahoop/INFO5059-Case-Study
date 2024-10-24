@@ -25,10 +25,12 @@ public class PurchaseOrderDAO {
         PurchaseOrder realOrder = new PurchaseOrder();
         realOrder.setVendorid(orderFromClient.getVendorid());
         realOrder.setPodate(LocalDateTime.now());
-        realOrder.setAmount(orderFromClient.getAmount());
+        realOrder.setTotal(orderFromClient.getTotal());
+        realOrder.setSubtotal(orderFromClient.getSubtotal());
+        realOrder.setTax(orderFromClient.getTax());
         entityManager.persist(realOrder);
-        for (PurchaseOrderLineItem item : orderFromClient.getItems()) {
-            PurchaseOrderLineItem realItem =  new PurchaseOrderLineItem();
+        for (PurchaseOrderItem item : orderFromClient.getItems()) {
+            PurchaseOrderItem realItem =  new PurchaseOrderItem();
             realItem.setPoid(realOrder.getId());
             realItem.setProductid(item.getProductid());
             realItem.setQty(item.getQty());

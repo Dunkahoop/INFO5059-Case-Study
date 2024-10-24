@@ -23,3 +23,5 @@ export const VENDOR_DEFAULT = {
     qrcode: [],
     qrcodetxt: ''
 };
+
+export const PDF_URL = 'http://localhost:8080/pdf';

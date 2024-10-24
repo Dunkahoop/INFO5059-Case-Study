@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @RequiredArgsConstructor
-public class PurchaseOrderLineItem {
+public class PurchaseOrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

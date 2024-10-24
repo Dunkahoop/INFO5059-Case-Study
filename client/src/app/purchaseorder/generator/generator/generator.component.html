@@ -158,6 +158,11 @@
           Save Order
         </button>
       </div>
+      <div style="text-align: center" *ngIf="generatedOrderId > 0">
+        <button mat-raised-button type="submit" (click)="viewPdf()">
+          View PDF
+        </button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
