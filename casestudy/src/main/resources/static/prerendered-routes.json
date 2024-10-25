@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/",
+    "/generator",
+    "/home",
+    "/products",
+    "/vendors"
+  ]
+}

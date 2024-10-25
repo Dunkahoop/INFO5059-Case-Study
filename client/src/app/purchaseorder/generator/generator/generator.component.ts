@@ -224,7 +224,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     });
   }
   viewPdf(): void {
-    window.open(`${PDF_URL}?id=${this.generatedOrderId}`);
+    window.open(`${PDF_URL}${this.generatedOrderId}`);
   }
   resetGenerator(): void {
     this.productForm.reset();

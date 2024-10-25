@@ -16,7 +16,7 @@ import com.itextpdf.io.exceptions.IOException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 public class PurchaseOrderController {
     @Autowired
