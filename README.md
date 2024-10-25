@@ -1,4 +1,4 @@
-# Angular/Jakarta EE Case Study
+# Angular/Jakarta EE/Spring Boot Case Study
 
 ## To Run
 
