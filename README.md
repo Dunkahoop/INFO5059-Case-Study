@@ -1,4 +1,4 @@
-# Angular/Jakarta EE/Spring Boot Case Study
+# Angular/Java Spring Boot/H2 Case Study
 
 ## To Run
 
