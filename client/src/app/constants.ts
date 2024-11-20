@@ -22,10 +22,10 @@ export const VENDOR_DEFAULT = {
     qrcode: [],
     qrcodetxt: ''
 };
-//localhost URLs - need these for
-//export const BASE_URL: string = 'http://localhost:8080/api';
-//export const PDF_URL = 'http://localhost:8080/pdf?id=';
+//localhost URLs - need these for local use
+export const BASE_URL: string = 'http://localhost:8080/api';
+export const PDF_URL = 'http://localhost:8080/pdf?id=';
 
 //URLs for AWS deployment
-export const BASE_URL: string = '/api';
-export const PDF_URL = '/pdf?id=';
+//export const BASE_URL: string = '/api';
+//export const PDF_URL = '/pdf?id=';

@@ -37,6 +37,8 @@ export class ProductDetailComponent implements OnInit {
   eoq: FormControl;
   qoh: FormControl;
   qoo: FormControl;
+  qrcodetxt: FormControl;
+
   productForm: FormGroup;
   constructor(private builder: FormBuilder) {
     this.id = new FormControl(
@@ -60,6 +62,7 @@ export class ProductDetailComponent implements OnInit {
     this.eoq = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
     this.qoh = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
     this.qoo = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
+    this.qrcodetxt = new FormControl('', Validators.compose([Validators.required]));
 
     this.productForm = this.builder.group({
       id: this.id,
@@ -71,6 +74,7 @@ export class ProductDetailComponent implements OnInit {
       eoq: this.eoq,
       qoh: this.qoh,
       qoo: this.qoo,
+      qrcodetxt: this.qrcodetxt,
     });
   }
   ngOnInit(): void {
@@ -84,6 +88,7 @@ export class ProductDetailComponent implements OnInit {
       eoq: this.product.eoq,
       qoh: this.product.qoh,
       qoo: this.product.qoo,
+      qrcodetxt: this.product.qrcodetxt,
     });
   }
   updateProductInDetail(): void {
@@ -96,6 +101,7 @@ export class ProductDetailComponent implements OnInit {
     this.product.eoq = this.productForm.value.eoq;
     this.product.qoh = this.productForm.value.qoh;
     this.product.qoo = this.productForm.value.qoo;
+    this.product.qrcodetxt = this.productForm.value.qrcodetxt;
     this.saved.emit(this.product);
   }
   uniqueCodeValidator(control: AbstractControl): { idExists: boolean } | null {
@@ -117,4 +123,5 @@ export class ProductDetailComponent implements OnInit {
     }
     return null; // if we make it here there are no product codes
   } // uniqueCodeValidator
+
 }

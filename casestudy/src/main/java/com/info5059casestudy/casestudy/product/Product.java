@@ -2,6 +2,7 @@ package com.info5059casestudy.casestudy.product;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ public class Product {
     private int eoq;
     private int qoh;
     private int qoo;
+    @Column(columnDefinition="varbinary(1000)")
     private byte[] qrcode;
     private String qrcodetxt;
 }
