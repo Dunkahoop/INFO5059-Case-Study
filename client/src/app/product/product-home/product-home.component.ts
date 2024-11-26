@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatComponentsModule } from '@app/mat-components/mat-components.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from '@app/product/product';
@@ -10,11 +10,17 @@ import { VendorService } from '@app/vendor/vendor.service';
 import { VendorModule } from '@app/vendor/vendor.module';
 import { Sort } from '@angular/material/sort';
 import { ProductDetailComponent } from '@app/product/product-detail/product-detail.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product-home',
   standalone: true,
-  imports: [CommonModule, MatComponentsModule, VendorModule, ProductDetailComponent],
+  imports: [
+    CommonModule,
+    MatComponentsModule,
+    VendorModule,
+    ProductDetailComponent,
+  ],
   templateUrl: './product-home.component.html',
   styles: ``,
 })
@@ -26,6 +32,12 @@ export class ProductHomeComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'vendorid'];
   dataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   productInDetail: Product = PRODUCT_DEFAULT;
+  pageSize = 5;
+  @ViewChild(MatPaginator, { static: false }) set matPaginator(
+    paginator: MatPaginator
+  ) {
+    this.dataSource.paginator = paginator;
+  }
   constructor(
     public productService: ProductService,
     public vendorService: VendorService
@@ -43,7 +55,11 @@ export class ProductHomeComponent implements OnInit {
   }
   getAllProducts(verbose: boolean = true): void {
     this.productService.getAll().subscribe({
-      next: (products: Product[]) => {this.dataSource.data = products; this.products = products; console.log(this.products)},
+      next: (products: Product[]) => {
+        this.dataSource.data = products;
+        this.products = products;
+        console.log(this.products);
+      },
       error: (e: Error) =>
         (this.msg = `Failed to load products - ${e.message}`),
       complete: () => (verbose ? (this.msg = `Products loaded!`) : null),
@@ -110,34 +126,34 @@ export class ProductHomeComponent implements OnInit {
         (this.dataSource.data = this.dataSource.data.sort(
           (a: Product, b: Product) =>
             sort.direction === 'asc'
-              ? (a.id < b.id
+              ? a.id < b.id
                 ? -1
-                : 1)
-              : (b.id < a.id
+                : 1
+              : b.id < a.id
               ? -1
-              : 1)
+              : 1
         )),
       name: () =>
         (this.dataSource.data = this.dataSource.data.sort(
           (a: Product, b: Product) =>
             sort.direction === 'asc'
-              ? (a.name < b.name
+              ? a.name < b.name
                 ? -1
-                : 1)
-              : (b.name < a.name
+                : 1
+              : b.name < a.name
               ? -1
-              : 1)
+              : 1
         )),
       vendorid: () =>
         (this.dataSource.data = this.dataSource.data.sort(
           (a: Product, b: Product) =>
             sort.direction === 'asc'
-              ? (a.vendorid < b.vendorid
+              ? a.vendorid < b.vendorid
                 ? -1
-                : 1)
-              : (b.vendorid < a.vendorid
+                : 1
+              : b.vendorid < a.vendorid
               ? -1
-              : 1)
+              : 1
         )),
     };
     literals[sort.active as keyof typeof literals]();
@@ -145,7 +161,7 @@ export class ProductHomeComponent implements OnInit {
   productExists(product: Product): boolean {
     let products: Product[] = this.dataSource.data;
     if (products?.length > 0) {
-      if(products.find(p => p.id === product.id) !== undefined) return true;
+      if (products.find((p) => p.id === product.id) !== undefined) return true;
     }
     return false;
   }

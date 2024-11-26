@@ -20,6 +20,7 @@ import {
   MatFormFieldModule,
 } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -37,6 +38,7 @@ const MaterialComponents = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatExpansionModule,
+  MatPaginatorModule
 ];
 
 @NgModule({

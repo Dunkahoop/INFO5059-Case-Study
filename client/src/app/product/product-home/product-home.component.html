@@ -49,19 +49,25 @@
         (click)="select(expense)"
       ></tr>
     </table>
+
+    <mat-paginator #paginator *ngIf="!showDetails" style="margin-top:2vh" [pageSize]="pageSize">
+    </mat-paginator>
+
+    <div class="padtop15" *ngIf="!showDetails">
+      <mat-icon
+        (click)="startNewProduct()"
+        matTooltip="Add New Product"
+        class="addicon"
+        color="primary"
+      >
+        control_point
+      </mat-icon>
+    </div>
+    
   </mat-card-content>
 </mat-card>
 
-<div class="padtop15" *ngIf="!showDetails">
-  <mat-icon
-    (click)="startNewProduct()"
-    matTooltip="Add New Product"
-    class="addicon"
-    color="primary"
-  >
-    control_point
-  </mat-icon>
-</div>
+
 <mat-card *ngIf="showDetails"
   ><mat-card-content>
     <app-product-detail
