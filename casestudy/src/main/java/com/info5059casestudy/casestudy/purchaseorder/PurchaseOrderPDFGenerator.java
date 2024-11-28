@@ -45,8 +45,10 @@ public abstract class PurchaseOrderPDFGenerator extends AbstractPdfView {
             PdfWriter writer = new PdfWriter(baos);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime PODate = LocalDateTime.MIN;
             PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
-            URL imageUrl = PurchaseOrderPDFGenerator.class.getResource("/static/images/vendor-icon.png");
+            URL imageUrl = PurchaseOrderPDFGenerator.class.getResource("/static/asset/vendor-icon.png");
             Image img = new Image(ImageDataFactory.create(imageUrl)).setHorizontalAlignment(HorizontalAlignment.LEFT);
             document.add(img);
             document.add(new Paragraph(String.format("Purchase Order #" + orderid))
@@ -85,6 +87,7 @@ public abstract class PurchaseOrderPDFGenerator extends AbstractPdfView {
                             .setFont(font).setFontSize(12).setTextAlignment(TextAlignment.LEFT).setBold();
                 }
                 // BigDecimal orderTotal = new BigDecimal(0);
+                PODate = order.getPodate();
                 for (PurchaseOrderItem item : order.getItems()) {
                     // check if product added actually exists, otherwise skip it
                     Optional<Product> nullableProduct = productRepository.findById(item.getProductid());
@@ -140,8 +143,8 @@ public abstract class PurchaseOrderPDFGenerator extends AbstractPdfView {
             document.add(new Paragraph("\n"));
             document.add(table);
             document.add(new Paragraph("\n"));
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            document.add(new Paragraph(dateTimeFormatter.format(LocalDateTime.now()))
+            //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            document.add(new Paragraph(dateTimeFormatter.format(PODate))
                     .setTextAlignment(TextAlignment.CENTER));
             document.close();
         } catch (Exception ex) {

@@ -15,6 +15,8 @@ import com.info5059casestudy.casestudy.vendor.VendorRepository;
 import com.itextpdf.io.exceptions.IOException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @CrossOrigin
 @RestController
@@ -40,6 +42,12 @@ public class PurchaseOrderController {
     public ResponseEntity<Iterable<PurchaseOrder>> findAll() {
         return new ResponseEntity<Iterable<PurchaseOrder>>(orderRepository.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/api/purchaseorders/{id}")
+    public ResponseEntity<Iterable<PurchaseOrder>> findByVendor(@PathVariable Long id) {
+        return new ResponseEntity<Iterable<PurchaseOrder>>(orderRepository.findByVendorid(id), HttpStatus.OK);
+    }
+    
 
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> streamPDF(HttpServletRequest request) throws IOException {

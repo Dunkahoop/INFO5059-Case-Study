@@ -7,4 +7,5 @@ export interface Purchaseorder {
     total: number;
     subtotal: number;
     tax: number;
+    podate?: string;
 }

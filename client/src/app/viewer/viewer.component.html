@@ -1,0 +1,143 @@
+<mat-card>
+    <mat-card-header layout="row">
+        <mat-card-title>
+            <span class="my-primary-text">{{msg}}</span>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="viewerFormGroup" novalidate>
+            <div layout="row" style="margin-top: 3vh">
+                <mat-form-field flex style="width: 100%">
+                  <mat-select placeholder="Choose Vendor" (selectionChange)="onVendorPicked($event)">
+                    <mat-option *ngFor="let vendor of vendors" [value]="vendor">
+                      {{ vendor.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngIf="vendorOrders.length > 0; else noOrders" layout="row">
+                <mat-form-field flex style="width: 100%">
+                    <!-- <mat-label>Orders</mat-label> -->
+                    <mat-select placeholder="Choose Order" (selectionChange)="onOrderPicked($event)">
+                        <mat-option *ngFor="let order of vendorOrders" [value]="order">
+                          {{ order.id }} - {{order.podate | date: "short" }}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+              </div>
+              <ng-template #noOrders>
+                <div
+                *ngIf="selectedVendor.id !== 0"
+                class="my-primary-text"
+                align="center"
+                >
+                  <div *ngIf="vendorOrders.length === 0">
+                    No orders for {{selectedVendor.name}}
+                  </div>
+                </div>
+                <div
+                *ngIf="selectedVendor.id !== 0"
+                class="my-secondary-text"
+                align="center"
+                >
+                  <div *ngIf="vendorOrders.length === 0">
+                    {{selectedOrder.podate | date: "long" }}
+                  </div>
+                </div>
+              </ng-template>
+              <div *ngIf="selectedOrder.id > 0" class="row">
+                <table>
+                    <tr>
+                        <th
+                          colspan="3"
+                          class="pad-xs text-center md-subhead my-primary-text"
+                          style="font-weight: bold; padding: 2vh"
+                        >
+                          Purchase Order {{selectedOrder.id}}
+                        </th>
+                      </tr>
+                      <tr style="font-weight: bold; background-color: #eeeeee">
+                        <td
+                          style="
+                            text-align: center;
+                            width: 20vw;
+                            padding-top: 2vh;
+                            padding-bottom: 2vh;
+                          "
+                        >
+                          Product
+                        </td>
+                        <td
+                          style="
+                            text-align: center;
+                            width: 60vw;
+                            padding-top: 2vh;
+                            padding-bottom: 2vh;
+                          "
+                        >
+                          Quantity
+                        </td>
+                        <td
+                          style="
+                            text-align: center;
+                            width: 20vw;
+                            padding-top: 2vh;
+                            padding-bottom: 2vh;
+                          "
+                        >
+                          Extended
+                        </td>
+                      </tr>
+                      <tr *ngFor="let item of selectedOrder.items">
+                        <td class="text-left" style="padding-top: 1vh; padding-bottom: 1vh">
+                          {{ item.productname }}
+                        </td>
+                        <td
+                          class="text-left"
+                          style="padding-top: 1vh; padding-bottom: 1vh"
+                        >
+                          {{ item.qty }}
+                        </td>
+                        <td
+                          style="padding-top: 1vh; padding-bottom: 1vh; text-align: right"
+                        >
+                          {{ item.price | currency : "USD" : "symbol" : "1.2-2" }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: right">Subtotal:</td>
+                        <td
+                          class="my-accent-text"
+                          style="font-weight: 600; text-align: right"
+                        >
+                          {{ this.subtotal | currency : "USD" : "symbol" : "1.2-2" }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: right">Tax:</td>
+                        <td
+                          class="my-accent-text"
+                          style="font-weight: 600; text-align: right"
+                        >
+                          {{ this.tax | currency : "USD" : "symbol" : "1.2-2" }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: right">Total:</td>
+                        <td
+                          class="my-accent-text"
+                          style="font-weight: 600; text-align: right"
+                        >
+                          {{ this.total | currency : "USD" : "symbol" : "1.2-2" }}
+                        </td>
+                      </tr>
+                </table>
+              </div>
+              <div style="text-align: center" *ngIf="selectedOrder.id > 0">
+                <button mat-raised-button type="submit" (click)="viewPdf()">
+                  View PDF
+                </button>
+              </div>
+        </form>
+    </mat-card-content>
+</mat-card>
