@@ -90,10 +90,9 @@ export class ViewerComponent {
   onOrderPicked(event: MatSelectChange) {
     this.selectedOrder = event.value
 
-    this.selectedOrder.items.forEach((item) => this.subtotal += item.price);
-
-    this.tax = this.subtotal * 0.05 + this.subtotal * 0.08;
-    this.total = this.subtotal + this.tax;
+    this.subtotal = this.selectedOrder.subtotal;
+    this.tax = this.selectedOrder.tax;
+    this.total = this.selectedOrder.total;
   }
   orderProducts() : Product[] {
     return this.vendorProducts.filter((product) => this.selectedOrder.items.some((item) => item.productid === product.id));

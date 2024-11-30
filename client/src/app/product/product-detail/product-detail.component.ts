@@ -130,7 +130,7 @@ export class ProductDetailComponent implements OnInit {
      * with the rest of the validators
      */
     console.log('checking id...');
-    console.log(this.products);
+    //console.log(this.products);
     if (this.products && this.products?.length > 0) {
       if (
         this.products.find(
