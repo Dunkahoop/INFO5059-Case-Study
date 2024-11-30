@@ -17,4 +17,4 @@ ARG JAR_FILE=casestudy-0.0.1-SNAPSHOT.jar
 ADD ${JAR_FILE} casestudy-0.0.1-SNAPSHOT.jar
 
 # What the container does at the start
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/casestudy.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/casestudy-0.0.1-SNAPSHOT.jar"]

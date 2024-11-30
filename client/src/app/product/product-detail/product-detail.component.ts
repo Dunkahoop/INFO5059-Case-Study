@@ -14,6 +14,8 @@ import { Vendor } from '@app/vendor/vendor';
 import { PRODUCT_DEFAULT } from '@app/constants';
 import { QuantityValidator } from '@app/validators/quantity.validator';
 import { DecimalNumberValidator } from '@app/validators/decimalNumber.validator';
+import { DeleteDialogComponent } from '@app/delete-dialog/delete-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
@@ -40,7 +42,7 @@ export class ProductDetailComponent implements OnInit {
   qrcodetxt: FormControl;
 
   productForm: FormGroup;
-  constructor(private builder: FormBuilder) {
+  constructor(private builder: FormBuilder, private dialog: MatDialog) {
     this.id = new FormControl(
       '',
       Validators.compose([
@@ -48,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
         this.uniqueCodeValidator.bind(this),
       ])
     );
-    this.vendorid = new FormControl(//TODO: why doesn't the error validation come after touching vendors?
+    this.vendorid = new FormControl( //TODO: why doesn't the error validation come after touching vendors?
       '',
       Validators.compose([Validators.required, Validators.min(1)])
     );
@@ -57,12 +59,30 @@ export class ProductDetailComponent implements OnInit {
       '',
       Validators.compose([Validators.required, DecimalNumberValidator])
     );
-    this.msrp = new FormControl('', Validators.compose([Validators.required, DecimalNumberValidator]));
-    this.rop = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
-    this.eoq = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
-    this.qoh = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
-    this.qoo = new FormControl('', Validators.compose([Validators.required, QuantityValidator]));
-    this.qrcodetxt = new FormControl('', Validators.compose([Validators.required]));
+    this.msrp = new FormControl(
+      '',
+      Validators.compose([Validators.required, DecimalNumberValidator])
+    );
+    this.rop = new FormControl(
+      '',
+      Validators.compose([Validators.required, QuantityValidator])
+    );
+    this.eoq = new FormControl(
+      '',
+      Validators.compose([Validators.required, QuantityValidator])
+    );
+    this.qoh = new FormControl(
+      '',
+      Validators.compose([Validators.required, QuantityValidator])
+    );
+    this.qoo = new FormControl(
+      '',
+      Validators.compose([Validators.required, QuantityValidator])
+    );
+    this.qrcodetxt = new FormControl(
+      '',
+      Validators.compose([Validators.required])
+    );
 
     this.productForm = this.builder.group({
       id: this.id,
@@ -109,7 +129,7 @@ export class ProductDetailComponent implements OnInit {
      * uniqueCodeValidator - needed access to products property so not
      * with the rest of the validators
      */
-    console.log("checking id...");
+    console.log('checking id...');
     console.log(this.products);
     if (this.products && this.products?.length > 0) {
       if (
@@ -117,11 +137,26 @@ export class ProductDetailComponent implements OnInit {
           (p) => p.id === control.value && !this.product.id
         ) !== undefined
       ) {
-        console.log(`id found`)
+        console.log(`id found`);
         return { idExists: true };
       }
     }
     return null; // if we make it here there are no product codes
   } // uniqueCodeValidator
-
+  openDeleteDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      title: `Delete Product ${this.product.id}`,
+      entityname: 'product',
+    };
+    dialogConfig.panelClass = 'customdialog';
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleted.emit(this.product);
+      }
+    }); //deleted.emit(product)
+  }
 }

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
 import com.info5059casestudy.casestudy.product.ProductRepository;
+import com.info5059casestudy.casestudy.product.QRCodeGenerator;
 import com.info5059casestudy.casestudy.vendor.VendorRepository;
 import com.itextpdf.io.exceptions.IOException;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @CrossOrigin
@@ -32,6 +32,9 @@ public class PurchaseOrderController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private QRCodeGenerator qrGenerator;
 
     @PostMapping("api/purchaseorders")
     public ResponseEntity<PurchaseOrder> addOne(@RequestBody PurchaseOrder order) {
@@ -52,7 +55,7 @@ public class PurchaseOrderController {
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> streamPDF(HttpServletRequest request) throws IOException {
         String id = request.getParameter("id");
-        ByteArrayInputStream bis = PurchaseOrderPDFGenerator.generateReport(id, vendorRepository, orderRepository, productRepository);
+        ByteArrayInputStream bis = PurchaseOrderPDFGenerator.generateReport(id, vendorRepository, orderRepository, productRepository, qrGenerator);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=order" + id + ".pdf");
         return ResponseEntity
