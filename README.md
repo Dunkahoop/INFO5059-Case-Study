@@ -1,5 +1,7 @@
 # Angular/Java Spring Boot/H2 Case Study
 
+For those coming across this since I made it public, this is an app I built as a continual assignment in one of my classes for the Fall 2024 semester (The class name was INFO5059, hence the title).
+
 ## To Run
 
 - Run server backend by running java file `CasestudyApplication.java` (in VSCode, right click file and select `Run Java`)
